@@ -1,30 +1,78 @@
 body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   width:100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-background: #1a1a1a;
+
+
 }
 
 .container{
+ 
   width:100%;
-  height: 100vh;
+  height: 75vh;
   display: flex;
   flex-direction:column;
-  justify-content: center;
+
+  background: #1a1a1a;
   
 }
 input{
+  
   height: 30px;
   border: 1px solid rgb(138, 137, 137);
-  background: #4242424f;
+  background: #262626;
   color: white;
   border-radius: 3px;
+  width: 60%;
+  margin-right: 10px;
 
 }
 input::placeholder{
+  color: rgb(133, 132, 132);
+}
+.input-btn{
+   margin-top: -17px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+}
+.task-manager{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
   color: white;
+  margin: 30px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(78, 78, 78);
+  font-size: 17px;
+}
+.done{
+  color: #5b5ca6;
+}
+.active{
+  color: #1e6f9f;
+}
+.empty-task{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #CCCCCC;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+.empty-task-img{
+background: #636363;
+width: 70px;
+height: 70px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
 }
 
 .button{
@@ -32,35 +80,72 @@ input::placeholder{
   height: 2rem;
   width: 4rem;
   border-radius: 3px;
-  background: #CCCCCC;
+  background: #1e6f9f;
+  color: white;
 }
 .list{
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #262626;
+  border-radius: 5px;
+  border: 1px solid rgb(66, 66, 66);
+  margin-top: 10px;
   
 }
 .li-btn{
   height: 15px;
-  margin-bottom: 10px;
+  background: none;
+  border: none;
   
 
 }
 
-li{
+.li{
   width: 100%;
-  
-  border-bottom: 1px solid #CCCCCC ;
-  color: white;
-  font-size: 20px;
+  color: rgb(231, 231, 231);
+  font-size: 16px;
   text-decoration: none;
-  padding-bottom: 10px;
   margin-bottom: 10px;
+  padding: auto;
+  padding-top: 10px;
+  padding-left: 5px;
+  
   
 
+}
+.circle{
+ content :'';
+ width: 20px;
+ height: 17px;
+
+ border-radius: 50%;
+ margin-left: 5px;
+ border: 1px solid #1e6f9f;
+}
+
+.list-active{
+  background: #5b5ca6;
+  border: none;
+}
+.ul-container{
+  width: 100%;
+  display: flex;
+  justify-content: center
 }
 ul{
-  width: 100%;
+
+  width: 60%;
   list-style-type: none;
   padding: 0;
+}
+
+.list-done{
+  text-decoration: line-through;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.reset{
+margin: auto;
 }

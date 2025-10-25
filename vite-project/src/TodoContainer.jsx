@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./todoContainer.css";
 export function TodoContainer() {
+  const [edit, setEdit] = useState(null);
   const [newTodo, setNewTodo] = useState("");
   const [inputValue, setInputValue] = useState(() => {
     const localInputValue = localStorage.getItem("inputValue");
@@ -16,11 +17,23 @@ export function TodoContainer() {
   };
 
   const btnClick = function () {
-    setInputValue([
-      ...inputValue,
-      { id: crypto.randomUUID(), text: newTodo, active: false },
-    ]);
-    setNewTodo("");
+    if (edit === null) {
+      setInputValue([
+        ...inputValue,
+        { id: crypto.randomUUID(), text: newTodo, active: false },
+      ]);
+      setNewTodo("");
+    } else {
+      const newTodos = inputValue.map((item) => {
+        if (edit === item.id) {
+          return { ...item, text: newTodo };
+        }
+        return item;
+      });
+      setInputValue(newTodos);
+      setNewTodo("");
+      setEdit(null);
+    }
   };
   useEffect(() => {
     localStorage.setItem("inputValue", JSON.stringify(inputValue));
@@ -32,6 +45,13 @@ export function TodoContainer() {
         item.id === id ? { ...item, active: !item.active } : item
       )
     );
+  };
+  const editButton = function (id) {
+    const itemToEdit = inputValue.find((item) => item.id === id);
+    if (itemToEdit) {
+      setNewTodo(itemToEdit.text);
+      setEdit(itemToEdit.id);
+    }
   };
 
   const ifinput = function () {
@@ -46,7 +66,7 @@ export function TodoContainer() {
                     className={`circle ${input.active ? "list-active" : ""}`}
                     onClick={() => toggleActive(input.id)}
                   ></span>
-                  <li className="li">{input.text}</li>
+                  <li className={`li ${input.active ? "li-active" : ""}`} >{input.text}</li>
                   <button
                     className="li-btn"
                     onClick={() => {
@@ -56,6 +76,20 @@ export function TodoContainer() {
                     }}
                   >
                     <img src="/trash.png" alt="trash" width={15} height={15} />
+                  </button>
+                  <button
+                    className="li-btn"
+                    onClick={() => {
+                      editButton(input.id);
+                    }}
+                  >
+                    {" "}
+                    <img
+                      src="/edit.png"
+                      alt="edit button"
+                      width={15}
+                      height={15}
+                    />{" "}
                   </button>
                 </div>
               );
@@ -93,12 +127,15 @@ export function TodoContainer() {
           </button>
         </div>
         <div className="task-manager">
-          <p className="done"> done tasks: {inputValue.filter(item => item.active).length}</p>
+          <p className="done">
+            {" "}
+            done tasks: {inputValue.filter((item) => item.active).length}
+          </p>
           <p className="active">active tasks: {inputValue.length}</p>
         </div>
-       
+
         <div className="content">{ifinput()}</div>
-         <button
+        <button
           className="button reset "
           onClick={() => {
             setInputValue([]);

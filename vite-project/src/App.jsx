@@ -1,7 +1,11 @@
 import './App.css'
+import { useState } from 'react';
 import { TodoContainer } from './TodoContainer'
-
+import { TodoProvider } from './TodoContext';
 function App() {
+  const [searchBar, setSearchBar] = useState("");
+   
+
   
   return(
     <>
@@ -9,8 +13,10 @@ function App() {
     <div className='upper-div'>
       
     </div>
-  
-    <TodoContainer />
+  <TodoProvider >
+    <TodoContainer searchBar={searchBar} setSearchBar={setSearchBar}   />
+    </TodoProvider>
+    
     
     </>
 
